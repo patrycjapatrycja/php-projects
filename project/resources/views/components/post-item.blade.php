@@ -1,0 +1,34 @@
+<div class="flex bg-white border border-default rounded-lg shadow-xs mb-8">
+    <div class="p-5 flex-1">
+        <h5 class="mb-3 text-2xl font-semibold tracking-tight text-heading leading-8">{{ $post->title }}</h5>
+        <div class="text-body mb-6">
+            {{ Str::words($post->content, 20) }}
+        </div>
+        <div class="text-sm text-gray-400 flex gap-2 py-2 items-center">
+            <div>
+                published by
+                <a href="{{ route('profile.show', $post->user->username) }}" class="hover:underline">
+                    <span class="font-semibold text-gray-400 dark:text-white">{{ $post->user->name }}</span>
+                </a>
+                at
+                <span class="mr-2">at {{ $post->formattedDate() }}</span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
+            </svg>
+            {{ $post->claps_count }}
+        </div>
+        <a href="{{ route('post.show', [
+            'username' => $post->user->username,
+            'post' => $post->slug,
+        ]) }}">
+            <x-primary-button>
+                Read more
+                <svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/></svg>
+            </x-primary-button>
+        </a>
+    </div>
+    <div class="flex-shrink-0 w-48">
+        <img class="object-cover rounded-r-lg h-full w-full" src="{{ $post->imageUrl() }}">
+    </div>
+</div>
